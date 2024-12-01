@@ -51,8 +51,10 @@ check() {
   fi
 }
 
+current_date_time="$(date "+%Y-%m-%d %H:%M:%S")"
 size=${#languages[@]}
 check "get size"
 index=$(($RANDOM % $size))
 check "get index"
+echo $current_date_time
 echo "==> ${languages[$index]}"
