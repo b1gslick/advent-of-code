@@ -73,11 +73,6 @@ func star_2() {
 			answer[value] = val
 		}
 	}
-	for k, v := range answer {
-		if v != 0 {
-			fmt.Printf("%s: %d\n", k, v)
-		}
-	}
 
 	result := 0
 	for k, v := range answer {
