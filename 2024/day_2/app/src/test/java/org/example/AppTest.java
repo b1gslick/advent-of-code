@@ -16,46 +16,46 @@ public class AppTest {
     @Test public void lineOnlyIncrease(){
         App classUnderTest = new App();
         String lineUnderTest = "1 3 6 7 9";
-        boolean isIncrease = classUnderTest.isIncrease(lineUnderTest);
+        boolean isIncrease = classUnderTest.isIncrease(lineUnderTest.split(" "));
         assertEquals(isIncrease, true);
     }
 
     @Test public void lineNotIncrease(){
         App classUnderTest = new App();
         String lineUnderTest = "1 3 6 7 2";
-        boolean isIncrease = classUnderTest.isIncrease(lineUnderTest);
+        boolean isIncrease = classUnderTest.isIncrease(lineUnderTest.split(" "));
         assertEquals(isIncrease, false);
     }
 
     @Test public void isCleanIncrease(){
         App classUnderTest = new App();
         String lineUnderTest = "1 2 7 8 9";
-        boolean isIncrease = classUnderTest.isIncrease(lineUnderTest);
+        boolean isIncrease = classUnderTest.isIncrease(lineUnderTest.split(" "));
         assertEquals(isIncrease, false);
     }
     @Test public void isCleanDecrease(){
         App classUnderTest = new App();
         String lineUnderTest = "7 6 4 2 1";
-        boolean isDecrease = classUnderTest.isDecrease(lineUnderTest);
+        boolean isDecrease = classUnderTest.isDecrease(lineUnderTest.split(" "));
         assertEquals(isDecrease, true);
     }
     @Test public void isNotCleanDecrease(){
         App classUnderTest = new App();
         String lineUnderTest = "8 6 4 4 1";
-        boolean isDecrease = classUnderTest.isDecrease(lineUnderTest);
+        boolean isDecrease = classUnderTest.isDecrease(lineUnderTest.split(" "));
         assertEquals(isDecrease, false);
     }
 
     @Test public void isNotSave(){
         App classUnderTest = new App();
-        String lineUnderTest = "1 3 2 4 5";
+        String lineUnderTest = "66 67 68 71 72 69";
         boolean notSave = classUnderTest.isSafe(lineUnderTest);
         assertEquals(notSave, false);
     }
 
     @Test public void isSave(){
         App classUnderTest = new App();
-        String lineUnderTest = "1 3 6 7 9";
+        String lineUnderTest = "40 42 44 46 49 51";
         boolean save = classUnderTest.isSafe(lineUnderTest);
         assertEquals(save, true);
     }
@@ -69,10 +69,6 @@ public class AppTest {
           safeResult += 1;
         }
       }
-      assertEquals(safeResult, 2);
-    
+      assertEquals(safeResult, 341);
     }
-    
-
-
 }

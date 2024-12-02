@@ -13,7 +13,6 @@ import java.util.ArrayList;
 public class App {
     public List<String> readLines(String path) {
         List<String> allLines = new ArrayList<String>();
-        // "/home/timon/Public/advent-of-code/2024/day_2/input.txt"
         try {
           allLines = Files.readAllLines(Paths.get(path));
         } catch (IOException e) {
@@ -26,52 +25,47 @@ public class App {
        int highBorder = 3;
        int lowBorder = 1;
        int result = Math.abs(prev - number);
-       return result <= highBorder && result >= lowBorder;
+       return lowBorder <= result && result <= highBorder;
     }
 
-    public boolean isIncrease(String line){
-      String[] arr = line.split(" ");
-      int currNumber = 0;
+    public boolean isIncrease(String[] arr){
+      int currNumber = Integer.parseInt(arr[0]) - 1;
       for (String a : arr){
          int number = Integer.parseInt(a);
-         if (number > currNumber && matchCriteria(number, currNumber)){
-            currNumber = number;
-         } else {
-           return false;
+         boolean inc = number > currNumber;
+         if (!inc || !matchCriteria(number, currNumber)){
+            return false;
          }
+         currNumber = number;
       }
       return true;
     }
 
-    public boolean isDecrease(String line){
-      String[] arr = line.split(" ");
+    public boolean isDecrease(String[] arr){
       int currNumber =  Integer.parseInt(arr[0]) + 1;
-      System.out.println(Arrays.toString(arr));
       for (String a : arr) {
-        System.out.println(a);
         int num = Integer.parseInt(a);
-        System.out.println(currNumber - num);
-        if (currNumber > num && matchCriteria(num, currNumber)){
-          currNumber = num;
-        } else {
-          System.out.println("Exit");
-          System.out.println(num);
-          System.out.println(currNumber);
+        boolean dec = currNumber > num;
+        if (!dec || !matchCriteria(num, currNumber)){
           return false;
         }
+        currNumber = num;
       }
       return true;
     }
 
     public boolean isSafe(String line){
-      if (this.isIncrease(line) || this.isDecrease(line)){
-        return true;
+      String[] arr = line.split(" ");
+      int first =  Integer.parseInt(arr[0]);
+      int second =  Integer.parseInt(arr[1]);
+      if (first < second){
+        return this.isIncrease(arr);
+      } else if (first > second){
+        return this.isDecrease(arr);
+      } else {
+       return false;
       }
-      return false;
-
     }
-
-
 
     public static void main(String[] args) {
     }
