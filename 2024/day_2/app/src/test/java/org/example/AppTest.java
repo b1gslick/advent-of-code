@@ -8,67 +8,78 @@ import static org.junit.Assert.*;
 import java.util.List;
 
 public class AppTest {
-    @Test public void reaLines() {
-        App classUnderTest = new App();
-        assert(classUnderTest.readLines("/home/timon/Public/advent-of-code/2024/day_2/example.txt").size() > 0);
-    }
+  @Test
+  public void reaLines() {
+    App classUnderTest = new App();
+    assert (classUnderTest.readLines("/home/timon/Public/advent-of-code/2024/day_2/example.txt").size() > 0);
+  }
 
-    @Test public void lineOnlyIncrease(){
-        App classUnderTest = new App();
-        String lineUnderTest = "1 3 6 7 9";
-        boolean isIncrease = classUnderTest.isIncrease(lineUnderTest.split(" "));
-        assertEquals(isIncrease, true);
-    }
+  @Test
+  public void lineOnlyIncrease() {
+    App classUnderTest = new App();
+    String lineUnderTest = "1 3 6 7 9";
+    boolean isIncrease = classUnderTest.isIncrease(lineUnderTest.split(" "));
+    assertEquals(isIncrease, true);
+  }
 
-    @Test public void lineNotIncrease(){
-        App classUnderTest = new App();
-        String lineUnderTest = "1 3 6 7 2";
-        boolean isIncrease = classUnderTest.isIncrease(lineUnderTest.split(" "));
-        assertEquals(isIncrease, false);
-    }
+  @Test
+  public void lineNotIncrease() {
+    App classUnderTest = new App();
+    String lineUnderTest = "1 3 6 7 2";
+    boolean isIncrease = classUnderTest.isIncrease(lineUnderTest.split(" "));
+    assertEquals(isIncrease, false);
+  }
 
-    @Test public void isCleanIncrease(){
-        App classUnderTest = new App();
-        String lineUnderTest = "1 2 7 8 9";
-        boolean isIncrease = classUnderTest.isIncrease(lineUnderTest.split(" "));
-        assertEquals(isIncrease, false);
-    }
-    @Test public void isCleanDecrease(){
-        App classUnderTest = new App();
-        String lineUnderTest = "7 6 4 2 1";
-        boolean isDecrease = classUnderTest.isDecrease(lineUnderTest.split(" "));
-        assertEquals(isDecrease, true);
-    }
-    @Test public void isNotCleanDecrease(){
-        App classUnderTest = new App();
-        String lineUnderTest = "8 6 4 4 1";
-        boolean isDecrease = classUnderTest.isDecrease(lineUnderTest.split(" "));
-        assertEquals(isDecrease, false);
-    }
+  @Test
+  public void isCleanIncrease() {
+    App classUnderTest = new App();
+    String lineUnderTest = "1 2 7 8 9";
+    boolean isIncrease = classUnderTest.isIncrease(lineUnderTest.split(" "));
+    assertEquals(isIncrease, false);
+  }
 
-    @Test public void isNotSave(){
-        App classUnderTest = new App();
-        String lineUnderTest = "66 67 68 71 72 69";
-        boolean notSave = classUnderTest.isSafe(lineUnderTest);
-        assertEquals(notSave, false);
-    }
+  @Test
+  public void isCleanDecrease() {
+    App classUnderTest = new App();
+    String lineUnderTest = "7 6 4 2 1";
+    boolean isDecrease = classUnderTest.isDecrease(lineUnderTest.split(" "));
+    assertEquals(isDecrease, true);
+  }
 
-    @Test public void isSave(){
-        App classUnderTest = new App();
-        String lineUnderTest = "40 42 44 46 49 51";
-        boolean save = classUnderTest.isSafe(lineUnderTest);
-        assertEquals(save, true);
-    }
+  @Test
+  public void isNotCleanDecrease() {
+    App classUnderTest = new App();
+    String lineUnderTest = "8 6 4 4 1";
+    boolean isDecrease = classUnderTest.isDecrease(lineUnderTest.split(" "));
+    assertEquals(isDecrease, false);
+  }
 
-    @Test public void exampleResultCorrect(){
-      App classUnderTest = new App();
-      List<String> lines = classUnderTest.readLines("/home/timon/Public/advent-of-code/2024/day_2/input.txt");
-      int safeResult = 0;
-      for (String line : lines){
-        if (classUnderTest.isSafe(line))  {
-          safeResult += 1;
-        }
+  @Test
+  public void isNotSave() {
+    App classUnderTest = new App();
+    String lineUnderTest = "66 67 68 71 72 69";
+    boolean notSave = classUnderTest.isSafe(lineUnderTest);
+    assertEquals(notSave, false);
+  }
+
+  @Test
+  public void isSave() {
+    App classUnderTest = new App();
+    String lineUnderTest = "40 42 44 46 49 51";
+    boolean save = classUnderTest.isSafe(lineUnderTest);
+    assertEquals(save, true);
+  }
+
+  @Test
+  public void exampleResultCorrect() {
+    App classUnderTest = new App();
+    List<String> lines = classUnderTest.readLines("/home/timon/Public/advent-of-code/2024/day_2/input.txt");
+    int safeResult = 0;
+    for (String line : lines) {
+      if (classUnderTest.isSafe(line)) {
+        safeResult += 1;
       }
-      assertEquals(safeResult, 341);
     }
+    assertEquals(safeResult, 341);
+  }
 }

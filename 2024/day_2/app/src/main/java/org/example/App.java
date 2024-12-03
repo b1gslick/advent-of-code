@@ -7,66 +7,65 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Arrays;
 import java.util.ArrayList;
 
 public class App {
-    public List<String> readLines(String path) {
-        List<String> allLines = new ArrayList<String>();
-        try {
-          allLines = Files.readAllLines(Paths.get(path));
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-        return allLines;
+  public List<String> readLines(String path) {
+    List<String> allLines = new ArrayList<String>();
+    try {
+      allLines = Files.readAllLines(Paths.get(path));
+    } catch (IOException e) {
+      e.printStackTrace();
     }
+    return allLines;
+  }
 
-    private boolean matchCriteria(int number, int prev){
-       int highBorder = 3;
-       int lowBorder = 1;
-       int result = Math.abs(prev - number);
-       return lowBorder <= result && result <= highBorder;
-    }
+  private boolean matchCriteria(int number, int prev) {
+    int highBorder = 3;
+    int lowBorder = 1;
+    int result = Math.abs(prev - number);
+    return lowBorder <= result && result <= highBorder;
+  }
 
-    public boolean isIncrease(String[] arr){
-      int currNumber = Integer.parseInt(arr[0]) - 1;
-      for (String a : arr){
-         int number = Integer.parseInt(a);
-         boolean inc = number > currNumber;
-         if (!inc || !matchCriteria(number, currNumber)){
-            return false;
-         }
-         currNumber = number;
+  public boolean isIncrease(String[] arr) {
+    int currNumber = Integer.parseInt(arr[0]) - 1;
+    for (String a : arr) {
+      int number = Integer.parseInt(a);
+      boolean inc = number > currNumber;
+      if (!inc || !matchCriteria(number, currNumber)) {
+        return false;
       }
-      return true;
+      currNumber = number;
     }
+    return true;
+  }
 
-    public boolean isDecrease(String[] arr){
-      int currNumber =  Integer.parseInt(arr[0]) + 1;
-      for (String a : arr) {
-        int num = Integer.parseInt(a);
-        boolean dec = currNumber > num;
-        if (!dec || !matchCriteria(num, currNumber)){
-          return false;
-        }
-        currNumber = num;
+  public boolean isDecrease(String[] arr) {
+    int currNumber = Integer.parseInt(arr[0]) + 1;
+    for (String a : arr) {
+      int num = Integer.parseInt(a);
+      boolean dec = currNumber > num;
+      if (!dec || !matchCriteria(num, currNumber)) {
+        return false;
       }
-      return true;
+      currNumber = num;
     }
+    return true;
+  }
 
-    public boolean isSafe(String line){
-      String[] arr = line.split(" ");
-      int first =  Integer.parseInt(arr[0]);
-      int second =  Integer.parseInt(arr[1]);
-      if (first < second){
-        return this.isIncrease(arr);
-      } else if (first > second){
-        return this.isDecrease(arr);
-      } else {
-       return false;
-      }
+  public boolean isSafe(String line) {
+    String[] arr = line.split(" ");
+    int first = Integer.parseInt(arr[0]);
+    int second = Integer.parseInt(arr[1]);
+    if (first < second) {
+      return this.isIncrease(arr);
+    } else if (first > second) {
+      return this.isDecrease(arr);
+    } else {
+      return false;
     }
+  }
 
-    public static void main(String[] args) {
-    }
+  public static void main(String[] args) {
+  }
 }
