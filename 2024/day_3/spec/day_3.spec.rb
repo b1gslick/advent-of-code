@@ -18,7 +18,7 @@ RSpec.describe 'testing day 3 chalenge' do
     end
 
     it 'it should read info from file and calculate result' do
-      file = open('/Users/sergei.timokhin/Private/advent-of-code/2024/day_3/input.txt')
+      file = open('/home/timon/projects/advent-of-code/2024/day_3/input.txt')
       data = file.read
       number = get_number(data)
       result = calculate(number)

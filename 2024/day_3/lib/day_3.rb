@@ -28,19 +28,16 @@ module DayThree
   end
 
   def get_after_instruction(line)
-    # print(line =~ /do\(\)/)
-    # print(line =~ /don't\(\)/)
-    #   line.each_byte do |i|
-    #     puts i.chr # Fixnum#chr converts any number to the ASCII char it represents
-    #   end
-    #   oo
     _test = "xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))"
+    copy_line = line.clone
+    result = []
+
     meet_dont = line =~ /don't\(\)/
-    first_part = mul?(line[0..meet_dont])
-    print(first_part)
-    print(line[meet_dont..])
-    first_do = line[meet_dont..line.length] =~ /do\(\)/
-    print("\n")
-    print(line[first_do..line.length])
+    result += get_number(line[0..meet_dont])
+    new_line = copy_line[meet_dont..]
+    first_do = new_line =~ /do\(\)/
+    result += get_number(new_line[first_do..])
+
+    result
   end
 end
