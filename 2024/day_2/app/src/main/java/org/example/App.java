@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+
+import javax.swing.text.html.HTMLDocument.Iterator;
+
 import java.util.ArrayList;
 
 public class App {
@@ -64,6 +67,48 @@ public class App {
     } else {
       return false;
     }
+  }
+
+  public boolean isSafeAdv(String line) {
+    String[] arr = line.split(" ");
+    boolean decrease = true;
+    boolean increase = true;
+    boolean ok = true;
+    boolean first_time = true;
+    for (int i = 0; i < arr.length - 1; i++) {
+      int diff = Integer.parseInt(arr[i + 1]) - Integer.parseInt(arr[i]);
+      if (diff > 0) {
+        decrease = false;
+      }
+      if (diff < 0) {
+        increase = false;
+      }
+      if (!(1 <= Math.abs(diff) && Math.abs(diff) <= 3)) {
+        if (first_time) {
+          first_time = false;
+          int new_diff1 = Integer.parseInt(arr[i + 2]) - Integer.parseInt(arr[i]);
+          int new_diff2 = Integer.parseInt(arr[i + 2]) - Integer.parseInt(arr[i + 1]);
+          if ((!(1 <= Math.abs(new_diff1) && Math.abs(new_diff1) <= 3))
+              || (!(1 <= Math.abs(new_diff2) && Math.abs(new_diff2) <= 3))) {
+
+            ok = false;
+            break;
+
+          }
+
+        } else {
+          ok = false;
+          break;
+
+        }
+      }
+    }
+    return ok && (decrease || increase);
+  }
+
+  public boolean withRepeat(String line) {
+    return false;
+
   }
 
   public static void main(String[] args) {

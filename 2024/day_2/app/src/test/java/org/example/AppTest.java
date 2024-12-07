@@ -50,7 +50,7 @@ public class AppTest {
   public void isNotCleanDecrease() {
     App classUnderTest = new App();
     String lineUnderTest = "8 6 4 4 1";
-    boolean isDecrease = classUnderTest.isDecrease(lineUnderTest.split(" "));
+    boolean isDecrease = classUnderTest.isSafeAdv(lineUnderTest);
     assertEquals(isDecrease, false);
   }
 
@@ -58,7 +58,7 @@ public class AppTest {
   public void isNotSave() {
     App classUnderTest = new App();
     String lineUnderTest = "66 67 68 71 72 69";
-    boolean notSave = classUnderTest.isSafe(lineUnderTest);
+    boolean notSave = classUnderTest.isSafeAdv(lineUnderTest);
     assertEquals(notSave, false);
   }
 
@@ -66,14 +66,14 @@ public class AppTest {
   public void isSave() {
     App classUnderTest = new App();
     String lineUnderTest = "40 42 44 46 49 51";
-    boolean save = classUnderTest.isSafe(lineUnderTest);
+    boolean save = classUnderTest.isSafeAdv(lineUnderTest);
     assertEquals(save, true);
   }
 
   @Test
   public void exampleResultCorrect() {
     App classUnderTest = new App();
-    List<String> lines = classUnderTest.readLines("/home/timon/Public/advent-of-code/2024/day_2/input.txt");
+    List<String> lines = classUnderTest.readLines("/Users/sergei.timokhin/Private/advent-of-code/2024/day_2/input.txt");
     int safeResult = 0;
     for (String line : lines) {
       if (classUnderTest.isSafe(line)) {
@@ -81,5 +81,19 @@ public class AppTest {
       }
     }
     assertEquals(safeResult, 341);
+  }
+
+  @Test
+  public void exampleResult2() {
+    App classUnderTest = new App();
+    List<String> lines = classUnderTest.readLines("/Users/sergei.timokhin/Private/advent-of-code/2024/day_2/input.txt");
+    int safeResult = 0;
+    for (String line : lines) {
+      if (classUnderTest.withRepeat(line)) {
+        safeResult += 1;
+      }
+    }
+    assertEquals(safeResult, 341);
+
   }
 }
