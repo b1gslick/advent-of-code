@@ -1,11 +1,9 @@
 use std::collections::HashSet;
-use std::io::Write;
 use std::{
     fs::File,
     io::{self, BufRead, BufReader},
     path::Path,
 };
-use std::{i32, usize};
 
 fn lines_from_file(filename: impl AsRef<Path>) -> io::Result<Vec<String>> {
     BufReader::new(File::open(filename)?).lines().collect()
