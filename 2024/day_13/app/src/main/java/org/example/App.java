@@ -11,8 +11,6 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.swing.text.html.HTMLDocument.Iterator;
-
 import java.util.ArrayList;
 
 public class App {
@@ -24,6 +22,51 @@ public class App {
       e.printStackTrace();
     }
     return allLines;
+  }
+
+  public Integer calculateTokensSumm(HashMap<Integer, HashMap<String, List<Integer>>> toCalc) {
+    var A = 0;
+    var B = 0;
+    for (var claws : toCalc.values()) {
+      var t = this.pressTimes(claws);
+      if (t.size() > 0) {
+        if ((t.get(0) < 100) && (t.get(1) < 100)) {
+          A += t.get(0);
+          B += t.get(1);
+        }
+      }
+    }
+    return (A * 3) + (B * 1);
+  }
+
+  public List<Integer> pressTimes(HashMap<String, List<Integer>> toFind) {
+    var result = new ArrayList<Integer>();
+    Integer a_x = toFind.get("A").get(0);
+    Integer a_y = toFind.get("A").get(1);
+    Integer b_x = toFind.get("B").get(0);
+    Integer b_y = toFind.get("B").get(1);
+    Integer p_x = toFind.get("P").get(0);
+    Integer p_y = toFind.get("P").get(1);
+    var px = p_x;
+    var py = p_y;
+    while (!((px % a_x == 0) && (py % a_y == 0))) {
+      px -= b_x;
+      py -= b_y;
+      if ((px < 0) || (py < 0)) {
+        return result;
+      }
+      if ((px == 0) && (py == 0)) {
+        System.out.println(toFind);
+        result.add(0);
+        result.add((p_x - px) / b_x);
+      }
+    }
+    // if (((px / a_x) == (py / a_y)) && ((p_x - px) / b_x == (p_y - py) / b_y)) {
+    result.add(px / a_x);
+    result.add((p_x - px) / b_x);
+    return result;
+    // }
+    // return result;
   }
 
   public HashMap<Integer, HashMap<String, List<Integer>>> buildMap(List<String> data) {
@@ -43,10 +86,10 @@ public class App {
 
       List<Integer> res = new ArrayList<Integer>();
 
-      if (matcherA.find()){
+      if (matcherA.find()) {
         String[] rawA = matcherA.group().split(",");
 
-        for (String l : rawA){
+        for (String l : rawA) {
           Matcher d = digit.matcher(l);
           d.find();
           Integer num = Integer.parseInt(d.group(0));
@@ -54,10 +97,10 @@ public class App {
         }
         small.put("A", res);
 
-      } else if (matcherB.find()){
+      } else if (matcherB.find()) {
         String[] rawB = matcherB.group().split(",");
 
-        for (String l : rawB){
+        for (String l : rawB) {
           Matcher d = digit.matcher(l);
           d.find();
           Integer num = Integer.parseInt(d.group(0));
@@ -68,7 +111,7 @@ public class App {
       } else if (prize.find()) {
         String[] rawP = prize.group().split(",");
 
-        for (String l : rawP){
+        for (String l : rawP) {
           Matcher d = digit.matcher(l);
           d.find();
           Integer num = Integer.parseInt(d.group(0));
@@ -89,15 +132,11 @@ public class App {
       } else {
         result.put(i, small);
       }
-      System.out.println(result.get(i).size());
-      System.out.println(result.get(i).size() % 3);
-      if (result.get(i).size() % 3 == 0){
-        System.out.println(result);
+      if (result.get(i).size() % 3 == 0) {
         i++;
       }
     }
 
-    System.out.println(result);
     return result;
   }
 
