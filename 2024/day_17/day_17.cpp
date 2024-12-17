@@ -149,7 +149,6 @@ std::string do_job(register_value *reg) {
     default:
       break;
     }
-    cout << result << "\n";
   }
   if (result.size() > 0) {
 

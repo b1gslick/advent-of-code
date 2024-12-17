@@ -1,4 +1,5 @@
 #include "./day_17.h"
+#include <cstdio>
 #include <gtest/gtest.h>
 #include <iostream>
 #include <string>
@@ -100,6 +101,30 @@ TEST(Real, BasicAssertions) {
   Value.C = 0;
   Value.inst = {2, 4, 1, 3, 7, 5, 1, 5, 0, 3, 4, 1, 5, 5, 3, 0};
   string exp = "6,7,5,2,1,3,5,1,7";
+  string res = do_job(&Value);
+  EXPECT_EQ(res, exp);
+}
+
+TEST(RealCopy, BasicAssertions) {
+  Value.A = 1;
+  Value.B = 0;
+  Value.C = 0;
+  Value.inst = {2, 4, 1, 3, 7, 5, 1, 5, 0, 3, 4, 1, 5, 5, 3, 0};
+  string exp = "2, 4, 1, 3, 7, 5, 1, 5, 0, 3, 4, 1, 5, 5, 3, 0";
+  string res = do_job(&Value);
+  while (exp != res) {
+    Value.A *= 2;
+    res = do_job(&Value);
+  }
+  printf("minimal A is %d\n", Value.A);
+}
+
+TEST(CopyItSelf, BasicAssertions) {
+  Value.A = 117440;
+  Value.B = 0;
+  Value.C = 0;
+  Value.inst = {0, 3, 5, 4, 3, 0};
+  string exp = "0,3,5,4,3,0";
   string res = do_job(&Value);
   EXPECT_EQ(res, exp);
 }
