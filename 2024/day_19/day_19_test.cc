@@ -1,5 +1,7 @@
 #include "./day_19.h"
+#include <fstream>
 #include <gtest/gtest.h>
+#include <iostream>
 #include <string>
 #include <vector>
 
@@ -44,10 +46,37 @@ TEST(CalculateAllPossible, BasicAssertions) {
   EXPECT_EQ(count, 6);
 }
 
-TEST(RealExampe, BasicAssertions) {
+// TEST(RealExampe, BasicAssertions) {
+//   data Data;
+//   getDataFromFile("/home/timon/projects/advent-of-code/2024/day_19/real.txt",
+//                   &Data);
+//   int count = getCountPossible(&Data);
+//   EXPECT_EQ(count, 313);
+// }
+//
+TEST(WhatWrong, BasicAssertions) {
   data Data;
   getDataFromFile("/home/timon/projects/advent-of-code/2024/day_19/real.txt",
                   &Data);
-  int count = getCountPossible(&Data);
-  EXPECT_EQ(count, 313);
+
+  std::ifstream file;
+
+  file.open("/home/timon/projects/advent-of-code/2024/day_19/true.txt");
+
+  if (file.fail()) {
+    perror("true.txt");
+    return;
+  }
+
+  std::string line;
+
+  while (!file.eof()) {
+    std::getline(file, line);
+
+    if (!possibleDesign(line, &Data.towels)) {
+      std::cout << line << std::endl;
+    }
+  }
+
+  EXPECT_EQ(1, 313);
 }
