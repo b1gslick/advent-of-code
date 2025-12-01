@@ -3,32 +3,34 @@
 require_relative '../lib/day_23'
 
 RSpec.describe 'testing day 23 chalenge' do
-  include DayThree
+  include Day23
   context 'test' do
-    it 'should detect mul(x,y)' do
-      test_input = 'xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))'
-      want = [[2, 4], [5, 5], [11, 8], [8, 5]]
-      expect(get_number(test_input)).to eq(want)
+    it 'should read data from file' do
+      data = get_data('./example.txt')
+      expect(data.length).to be > (0)
     end
+  end
 
-    it 'should calculate from list' do
-      want = 161
-      test_input = [[2, 4], [5, 5], [11, 8], [8, 5]]
-      expect(calculate(test_input)).to eq(want)
-    end
+  it 'network len for 3 is 12' do
+    data = get_data('./example.txt')
+    networks = get_net(data)
+    print networks
+    expect(networks.length).to be == (16)
+  end
 
-    it 'it should read info from file and calculate result' do
-      file = open('/home/timon/projects/advent-of-code/2024/day_3/input.txt')
-      data = file.read
-      number = get_number(data)
-      result = calculate(number)
-      expect(result).to eq(183_669_043)
-    end
+  it 'buld net with T named pc len is 7' do
+    data = get_data('./example.txt')
+    networks = get_net(data)
+    build_n = build_networks_with_t(networks)
+    build_t = get_t_named(build_n)
+    expect(build_t.length).to be == (7)
+  end
 
-    it 'should be read data from memory with instructions' do
-      test_input = "xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))"
-      want = [[2, 4], [8, 5]]
-      expect(get_after_instruction(test_input)).to eq(want)
-    end
+  it 'calculate real example' do
+    data = get_data('./real.txt')
+    networks = get_net(data)
+    build_n = build_networks_with_t(networks)
+    build_t = get_t_named(build_n)
+    expect(build_t.length).to be == (7)
   end
 end
