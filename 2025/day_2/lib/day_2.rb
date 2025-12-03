@@ -50,11 +50,33 @@ module Day2
     answer.to_i
   end
 
+  def sequence(number)
+    scanned = number.scan(/./)
+    seq = ''
+    scanned.each_with_index do |num, idx|
+      seq += num if num != scanned[idx + 1]
+      puts seq
+    end
+  end
+
+  def find_repeated_sequence(diapason)
+    dip = diapason.split('-')
+    start = dip[0].to_i
+    d_end = dip[1].to_i
+    for i in start..d_end do
+
+    end
+  end
+
   def calculate_batch(data)
     sum = 0
     data.each do |diap|
       sum += sum_diapason(diap)
     end
     sum
+  end
+
+  def sequence_batch(data)
+    sum = 0
   end
 end

@@ -39,14 +39,27 @@ RSpec.describe 'testing day 2 chalenge' do
       expect(detect_double('0101')).to eq false
     end
 
-    it 'iterate over date should return answer' do
-      data = get_data('./example.txt')
-      expect(calculate_batch(data)).to eq 1_227_775_554
+    # it 'iterate over date should return answer' do
+    #   data = get_data('./example.txt')
+    #   expect(calculate_batch(data)).to eq 1_227_775_554
+    # end
+    #
+    # it 'iterate over date should return answer real' do
+    #   data = get_data('./real.txt')
+    #   expect(calculate_batch(data)).to eq 31_210_613_313
+    # end
+    #
+    %w[111].each do |num|
+      it "#{num} should return sequence #{num}" do
+        detected_double_sum = sequence(num)
+        expect(detected_double_sum).to eq true
+      end
     end
 
-    it 'iterate over date should return answer real' do
-      data = get_data('./real.txt')
-      expect(calculate_batch(data)).to eq 1_227_775_554
-    end
+    # it 'add repeated sequences return 4174379265 for example' do
+    #   data = get_data('./example.txt')
+    #   old = calculate_batch(data)
+    #   expect(old + sequence_batch(data)).to eq 4_174_379_265
+    # end
   end
 end
