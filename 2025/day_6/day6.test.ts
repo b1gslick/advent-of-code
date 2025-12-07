@@ -1,4 +1,4 @@
-import { calculate, getNumbersAsString, getNumbersByCols, readData } from "./day_6";
+import { calculate, calculateAsStrings, getNumberInReverseOrder, getNumbersAsString, getNumbersByCols, readData } from "./day_6";
 
 test("should read data from file", () => {
   const example = readData("./example.txt");
@@ -34,78 +34,44 @@ test.skip("result in real input should be 3261038365331", () => {
 test("get number from example as string", () => {
   const data = readData("./example.txt");
   const string = getNumbersAsString(data);
-  const ex = [
-    ["123", "328", "51", "64"],
-    ["45", "64", "387", "23"],
-    ["6", "98", "215", "314"],
-  ]
-  expect(string).toEqual(ex);
+  const expected = new Map(
+    [
+      [0, ["123", "328", "-51", "64-"]],
+      [1, ["-45", "64-", "387", "23-"]],
+      [2, ["--6", "98-", "215", "314"]],
+    ]
+  )
+  expect(string).toEqual(expected);
+})
+type testData = {
+  numbers: string[];
+  result: number[];
+};
+
+test.each<testData>([
+  {
+    numbers: ["123", "-45", "--6"],
+    result: [1, 24, 356],
+  },
+  {
+    numbers: ["328", "64-", "98-"],
+    result: [369, 248, 8],
+  },
+])("get numbers $numbers from one columns should $result", ({ numbers, result }) => {
+  const realNumbers = getNumberInReverseOrder(numbers)
+  expect(realNumbers).toEqual(result)
 })
 
-test("get numbers by rows and colums", () => {
-  const strings = getNumbersAsString(readData("./example.txt"));
-  const realNumbers = getRealNumbers(strings)
-  const ex = [
-    ["123", "328", "51", "64"],
-    ["45", "64", "387", "23"],
-    ["6", "98", "215", "314"],
-  ]
-
+test("calculate example 3263827", () => {
+  const data = readData("./example.txt");
+  const string = getNumbersAsString(data);
+  const result = getNumbersByCols(data)
+  expect(calculateAsStrings(string, result[1])).toEqual(3263827)
 })
 
-//
-// type testData = {
-//   stones: string;
-//   times: number;
-//   result: string;
-// };
-//
-// test.each<testData>([
-//   {
-//     stones: "125 17",
-//     times: 1,
-//     result: "253000 1 7",
-//   },
-//   {
-//     stones: "125 17",
-//     times: 2,
-//     result: "253 0 2024 14168",
-//   },
-//   {
-//     stones: "125 17",
-//     times: 3,
-//     result: "512072 1 20 24 28676032",
-//   },
-//   {
-//     stones: "125 17",
-//     times: 4,
-//     result: "512 72 2024 2 0 2 4 2867 6032",
-//   },
-//   {
-//     stones: "125 17",
-//     times: 5,
-//     result: "1036288 7 2 20 24 4048 1 4048 8096 28 67 60 32",
-//   },
-//   {
-//     stones: "125 17",
-//     times: 6,
-//     result:
-//       "2097446912 14168 4048 2 0 2 4 40 48 2024 40 48 80 96 2 8 6 7 6 0 3 2",
-//   },
-// ])("with $stones should have $result after $times", (testData) => {
-//   expect(blinks(testData.stones, testData.times)).toEqual(testData.result);
-// });
-//
-// test("real example with 25 times", () => {
-//   let has = "6571 0 5851763 526746 23 69822 9 989";
-//   let times = 25;
-//   let anwser = blinks(has, times);
-//   let stones = anwser.split(" ").length;
-//   expect(stones).toEqual(203953);
-// });
-//
-// test("real exmaple no rec 75 times", () => {
-//   let has = "6571 0 5851763 526746 23 69822 9 989";
-//   let times = 75;
-//   expect(blinks_no_rec(has, times)).toEqual(203953);
-// });
+test("calculate input 3263827", () => {
+  const data = readData("./input.txt");
+  const string = getNumbersAsString(data);
+  const result = getNumbersByCols(data)
+  expect(calculateAsStrings(string, result[1])).toEqual(3263827)
+})
