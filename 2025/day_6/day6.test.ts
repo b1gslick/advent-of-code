@@ -1,4 +1,4 @@
-import { calculate, calculateAsStrings, getNumberInReverseOrder, getNumbersAsString, getNumbersByCols, readData } from "./day_6";
+import { calculate, calculateAsStrings, getBoxSizes, getNumberInReverseOrder, getNumbersAsString, getNumbersByCols, readData } from "./day_6";
 
 test("should read data from file", () => {
   const example = readData("./example.txt");
@@ -33,7 +33,7 @@ test.skip("result in real input should be 3261038365331", () => {
 
 test("get number from example as string", () => {
   const data = readData("./example.txt");
-  const string = getNumbersAsString(data);
+  const string = getNumbersAsString(data, [3, 3, 3]);
   const expected = new Map(
     [
       [0, ["123", "328", "-51", "64-"]],
@@ -64,14 +64,30 @@ test.each<testData>([
 
 test("calculate example 3263827", () => {
   const data = readData("./example.txt");
-  const string = getNumbersAsString(data);
   const result = getNumbersByCols(data)
+  const boxSizes = getBoxSizes(result[0]);
+  const string = getNumbersAsString(data, boxSizes);
   expect(calculateAsStrings(string, result[1])).toEqual(3263827)
 })
 
-test("calculate input 3263827", () => {
+test("get box sizes for examples", () => {
+  const data = readData("./example.txt");
+  const result = getNumbersByCols(data);
+  const boxSizes = getBoxSizes(result[0]);
+  expect(boxSizes).toEqual([3, 3, 3, 3]);
+})
+
+test("get box sizes for examples", () => {
   const data = readData("./input.txt");
-  const string = getNumbersAsString(data);
+  const result = getNumbersByCols(data);
+  const boxSizes = getBoxSizes(result[0]);
+  expect(boxSizes).toEqual([3, 3, 3, 3]);
+})
+
+test.only("calculate input 3263827", () => {
+  const data = readData("./input.txt");
   const result = getNumbersByCols(data)
+  const boxSizes = getBoxSizes(result[0]);
+  const string = getNumbersAsString(data, boxSizes);
   expect(calculateAsStrings(string, result[1])).toEqual(3263827)
 })

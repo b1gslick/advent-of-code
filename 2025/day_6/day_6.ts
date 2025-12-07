@@ -29,31 +29,33 @@ export const getNumbersByCols = (data: string): [number[][], string[]] => {
   return [numbers, operand]
 }
 
-export const getNumbersAsString = (data: string): Map<number, string[]> => {
+export const getNumbersAsString = (data: string, steps: number[]): Map<number, string[]> => {
   const splited = data.split('\n');
+  const len = splited.length
   const result: string[][] = [];
   const mapResult = new Map();
-  for (var i = 0; i < splited.length; i++) {
-    if (splited[i]?.includes("*")) {
+  for (var row = 0; row < len; row++) {
+    if (splited[row]?.includes("*")) {
       break;
     }
     // @ts-ignore
-    result.push(sliceEveryNsymbols(splited[i], 3))
+    result.push(sliceEveryNsymbols(splited[row], steps))
   }
   // @ts-ignore
-  var len = result[0]?.length;
-  // @ts-ignore
-  for (var i = 0; i < len - 1; i++) {
-    // @ts-ignore
+  // go to the all number in row
+  for (var row = 0; row < result.length; row++) {
     var arr: string[] = []
     // @ts-ignore
-    for (var number = 0; number < len; number++) {
+    // this is numbers // 17
+    for (var number = 0; number < result[0]?.length; number++) {
       var tmp = "";
-      var resI = result[i] || []
-      var numb = resI[number] || []
-      for (let index = 0; index < numb.length; index++) {
+      var rowForNumber = result[row]; // 0, 1, 2, 3
+      // @ts-ignore
+      var nu = rowForNumber[number]; // 0, 1, 2, until 17
+      // @ts-ignore
+      for (let indexWordInNumber = 0; indexWordInNumber < nu.length; indexWordInNumber++) { // 0-4
         // @ts-ignore
-        var n = result[i][number][index]
+        var n = nu[indexWordInNumber]
         if (n == " ") {
           n = "-"
         }
@@ -61,22 +63,25 @@ export const getNumbersAsString = (data: string): Map<number, string[]> => {
       }
       arr.push(tmp)
     }
-    mapResult.set(i, arr)
+    mapResult.set(row, arr)
 
   }
   return mapResult;
 }
 
-export const sliceEveryNsymbols = (data: string, n: number): string[] => {
+export const sliceEveryNsymbols = (data: string, n: number[]): string[] => {
   const tmp = data.split("");
-  const result: string[] = []
+  const r: string[] = []
   var i = 0;
-  while (i < data.length) {
+  var sliceStep = 0;
+  while (i < tmp.length) {
     // @ts-ignore
-    result.push(tmp.slice(i, i + n))
-    i += n + 1;
+    r.push(tmp.slice(i, i + n[sliceStep]))
+    // @ts-ignore
+    i += n[sliceStep] + 1;
+    sliceStep++;
   }
-  return result
+  return r
 }
 
 export const calculate = (data: [number[][], string[]]): number => {
@@ -151,6 +156,7 @@ export const lengthLargesArray = (data: string[]): number => {
 export const calculateAsStrings = (data: Map<number, string[]>, operands: string[]): number => {
   const rows = data.size;
   var sum = 0;
+  console.log(data)
 
   for (var i = 0; i < operands.length; i++) {
     const op = operands[i];
@@ -172,4 +178,25 @@ export const calculateAsStrings = (data: Map<number, string[]>, operands: string
     }
   }
   return sum;
+}
+
+export const getBoxSizes = (data: number[][]): number[] => {
+  const result: number[] = []
+  // @ts-ignore
+  for (var i = 0; i < data[0]?.length; i++) {
+    var max = 0;
+    // @ts-ignore
+    for (var j = 0; j < data.length; j++) {
+      // @ts-ignore
+      const number = data[j][i]?.toString().length;
+      // @ts-ignore
+      if (number > max) {
+        // @ts-ignore
+        max = number
+      }
+    }
+    result.push(max)
+  }
+
+  return result
 }
