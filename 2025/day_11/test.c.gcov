@@ -1,0 +1,43 @@
+        -:    0:Source:test.c
+        -:    0:Graph:test-test.gcno
+        -:    0:Data:test-test.gcda
+        -:    0:Runs:10
+        -:    0:Programs:1
+        -:    1:#include "test.h"
+        -:    2:#include "day_11.h"
+        -:    3:#include <assert.h>
+        -:    4:#include <stddef.h>
+        -:    5:#include <stdio.h>
+        -:    6:#include <stdlib.h>
+        -:    7:#include <string.h>
+        -:    8:
+       10:    9:int main(int argc, char **argv) {
+       10:   10:  test_read_file();
+       10:   11:  test_build_graph();
+       10:   12:  test_find_paht_to_out();
+       10:   13:  return 0;
+        -:   14:}
+        -:   15:
+       10:   16:void test_read_file() {
+       10:   17:  const char *got = read_file("./example.txt");
+       10:   18:  const char *want = "Hello, world";
+       10:   19:  assert(strcmp(got, want) != 0);
+       10:   20:}
+        -:   21:
+       10:   22:void test_build_graph() {
+       10:   23:  struct Graph *graph = buildGraphFromData("./example.txt");
+       10:   24:  printGraph(graph);
+       10:   25:  assert(findYou(graph) == 1);
+       10:   26:}
+        -:   27:
+       10:   28:void test_find_paht_to_out() {
+       10:   29:  struct Graph *graph = buildGraphFromData("./example.txt");
+        -:   30:  int chords[2];
+       10:   31:  find_elem(chords, graph, "out");
+      110:   32:  for (int i = 0; i < 10; i++) {
+      100:   33:    int size = getLenForIndex(graph, i);
+      100:   34:    printf("index %d\n", i);
+      100:   35:    elemInArray(graph->array[i], size - 1);
+      100:   36:  }
+       10:   37:  printf("first out {%d:%d}", chords[0], chords[1]);
+       10:   38:}
