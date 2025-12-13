@@ -1,6 +1,4 @@
 import sys
-from functools import cache
-from collections import defaultdict, Counter, deque
 
 D = sys.stdin.read()
 

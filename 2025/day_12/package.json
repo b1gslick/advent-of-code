@@ -1,0 +1,22 @@
+{
+  "name": "day_12",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "testw": "jest --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@jest/globals": "^29.7.0",
+    "@types/jest": "^29.5.13",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1"
+  }
+}
